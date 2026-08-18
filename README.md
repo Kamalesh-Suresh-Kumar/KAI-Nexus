@@ -15,10 +15,14 @@ The platform also includes a serverless global view counter powered by Supabase,
 ## 🌐 Live Website
 
 **KAI-Nexus:**  
-<https://kamalesh-suresh-kumar.github.io/KAI-Nexux/>
+<a href="https://kamalesh-suresh-kumar.github.io/KAI-NEXUS/" target="_blank" rel="noopener noreferrer">
+    Open KAI-Nexus
+</a>
 
 **GitHub Repository:**  
-<https://github.com/Kamalesh-Suresh-Kumar/KAI-Nexus>
+<a href="https://github.com/Kamalesh-Suresh-Kumar/KAI-Nexus" target="_blank" rel="noopener noreferrer">
+    Open KAI-Nexus Repository
+</a>
 
 ---
 
@@ -203,22 +207,26 @@ Example response:
 # 🏗️ Technology Stack
 
 `Frontend:`
+
 - HTML5
 - CSS3
 - JavaScript
 - Responsive Web Design
 
 `Backend:`
+
 - Supabase
 - Supabase Edge Functions
 - PostgreSQL
 - PostgreSQL RPC functions
 
 `Deployment:`
+
 - GitHub
 - GitHub Pages
 
 `Development Tools:`
+
 - Visual Studio Code
 - Git
 - GitHub
@@ -460,6 +468,7 @@ When a visitor opens KAI-Nexus:
 The application should be tested for:
 
 **UI**
+
 - ☑️Website loads correctly
 - ☑️Hero section renders correctly
 - ☑️Digital network renders correctly
@@ -467,6 +476,7 @@ The application should be tested for:
 - ☑️Footer renders correctly
 
 **Navigation**
+
 - ☑️GitHub link works
 - ☑️LinkedIn link works
 - ☑️Kaggle link works
@@ -475,6 +485,7 @@ The application should be tested for:
 - ☑️LeetCode link works
 
 **Backend**
+
 - ☑️Supabase project created
 - ☑️`site_stats` table created
 - ☑️Initial site record created
@@ -484,6 +495,7 @@ The application should be tested for:
 - ☑️View count returned successfully
 
 **Deployment**
+
 - ☑️GitHub repository created
 - ☑️Source code pushed
 - ☑️GitHub Pages enabled
@@ -550,6 +562,7 @@ This separation allows the frontend to remain completely static while still supp
 ---
 
 # 👨‍💻 Author
+
 Kamalesh Suresh Kumar
 
 Computer Science & Engineering
