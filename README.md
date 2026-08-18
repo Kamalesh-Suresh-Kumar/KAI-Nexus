@@ -15,7 +15,7 @@ The platform also includes a serverless global view counter powered by Supabase,
 ## 🌐 Live Website
 
 **KAI-Nexus:**  
-<a href="https://kamalesh-suresh-kumar.github.io/KAI-NEXUS/" target="_blank" rel="noopener noreferrer">
+<a href="https://kamalesh-suresh-kumar.github.io/KAI-Nexus/" target="_blank" rel="noopener noreferrer">
     Open KAI-Nexus
 </a>
 
