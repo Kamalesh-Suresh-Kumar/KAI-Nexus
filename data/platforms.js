@@ -1,0 +1,51 @@
+const platforms = [
+  {
+    name: "GitHub",
+    type: "DEVELOPMENT",
+    icon: "assets/github.svg",
+    description: "Open-source development, repositories and project work.",
+    stats: "PROJECTS • CODE • CONTRIBUTIONS",
+    url: "https://github.com/Kamalesh-Suresh-Kumar",
+  },
+  {
+    name: "LinkedIn",
+    type: "PROFESSIONAL",
+    icon: "assets/linkedin.svg",
+    description: "Professional profile, career experience and networking.",
+    stats: "CAREER • NETWORK • PROFESSIONAL",
+    url: "https://www.linkedin.com/in/kamalesh-suresh-kumar/",
+  },
+  {
+    name: "Unstop",
+    type: "COMPETITIONS",
+    icon: "assets/unstop.svg",
+    description: "Hackathons, competitions, challenges and career opportunities.",
+    stats: "HACKATHONS • COMPETITIONS • CAREER",
+    url: "https://unstop.com/u/kamalkum3987",
+  },
+  {
+    name: "LeetCode",
+    type: "PROBLEM SOLVING",
+    icon: "assets/leetcode.svg",
+    description: "Competitive programming, algorithms and data structures.",
+    stats: "ALGORITHMS • DSA • PROBLEM SOLVING",
+    url: "https://leetcode.com/u/kamalesh_s_p/",
+  },
+  {
+    name: "HackerRank",
+    type: "CODING",
+    icon: "assets/hackerrank.svg",
+    description:
+      "Coding challenges, certifications and technical skill practice.",
+    stats: "CODING • SKILLS • CERTIFICATIONS",
+    url: "https://www.hackerrank.com/profile/kamalesh_s_p",
+  },
+  {
+    name: "Kaggle",
+    type: "AI / DATA",
+    icon: "assets/kaggle.svg",
+    description: "Machine learning, datasets and data science projects.",
+    stats: "AI • DATA • ML",
+    url: "https://www.kaggle.com/kamaleshsp",
+  },
+];
