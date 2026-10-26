@@ -48,4 +48,12 @@ const platforms = [
     stats: "AI • DATA • ML",
     url: "https://www.kaggle.com/kamaleshsp",
   },
+  {
+    name: "Discord",
+    type: "COMMUNITY",
+    icon: "assets/discord.svg",
+    description: "Developer communities, technical discussions and real-time collaboration.",
+    stats: "COMMUNITY • DISCUSSIONS • COLLABORATION",
+    url: "https://discordapp.com/users/1256675555294838998",
+  },
 ];
