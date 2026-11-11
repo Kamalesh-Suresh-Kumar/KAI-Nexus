@@ -17,7 +17,7 @@ platforms.forEach((platform, index) => {
   node.dataset.platform = platform.name;
   node.setAttribute("role", "button");
   node.setAttribute("tabindex", "0");
-  node.setAttribute("aria-label", `Select ${platform.name}`);
+  node.setAttribute("aria-label", platform.name);
   node.innerHTML = `
     <img src="${platform.icon}" alt="${platform.name}">
     <div class="platform-node-name">
@@ -398,7 +398,7 @@ document.querySelectorAll(".platform-node").forEach((node, index) => {
     activatePlatform(index);
   });
 });
-document.querySelectorAll(".platform-node").forEach((node) => {
+document.querySelectorAll(".platform-node").forEach((node, index) => {
   node.addEventListener("mouseenter", () => {
     node.classList.add("scanning");
   });
@@ -406,11 +406,11 @@ document.querySelectorAll(".platform-node").forEach((node) => {
     node.classList.remove("scanning");
   });
   node.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    activatePlatform(index);
-  }
-});
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      activatePlatform(index);
+    }
+  });
 });
 // =============================================
 // CONNECTION STATUS
@@ -423,7 +423,6 @@ function getConnectionStatus(url) {
       text: "CONNECTION MISSING",
     };
   }
-
   // Placeholder URL
   if (url.startsWith("YOUR_") || url.includes("YOUR_LINK")) {
     return {
@@ -431,7 +430,6 @@ function getConnectionStatus(url) {
       text: "CONNECTION MISSING",
     };
   }
-
   // Browser offline
   if (!navigator.onLine) {
     return {
@@ -439,7 +437,6 @@ function getConnectionStatus(url) {
       text: "NETWORK OFFLINE",
     };
   }
-
   // Phone number validation
   if (url.startsWith("tel:")) {
     const phone = url.substring(4);
@@ -450,17 +447,14 @@ function getConnectionStatus(url) {
         text: "CALL READY",
       };
     }
-
     return {
       state: "invalid",
       text: "CONNECTION INVALID",
     };
   }
-
   // Website URL validation
   try {
     const parsed = new URL(url);
-
     if (
       parsed.protocol !== "https:" &&
       parsed.protocol !== "http:"
@@ -470,7 +464,6 @@ function getConnectionStatus(url) {
         text: "CONNECTION INVALID",
       };
     }
-
     if (!parsed.hostname) {
       return {
         state: "invalid",
