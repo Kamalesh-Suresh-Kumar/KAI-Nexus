@@ -15,6 +15,9 @@ platforms.forEach((platform, index) => {
   node.className = "platform-node";
   node.dataset.index = index;
   node.dataset.platform = platform.name;
+  node.setAttribute("role", "button");
+  node.setAttribute("tabindex", "0");
+  node.setAttribute("aria-label", `Select ${platform.name}`);
   node.innerHTML = `
     <img src="${platform.icon}" alt="${platform.name}">
     <div class="platform-node-name">
@@ -314,7 +317,6 @@ function activatePlatform(index) {
   activePlatform = platform;
   // Verify connection
   updateConnectionStatus(platform);
-  const connection = getConnectionStatus(platform.url);
   // -----------------------------------------
   // PANEL
   // -----------------------------------------
@@ -360,7 +362,16 @@ function activatePlatform(index) {
       showConnectionMessage("NETWORK OFFLINE");
       return;
     }
-    window.open(activePlatform.url, "_blank", "noopener,noreferrer");
+    // Phone links should open the device dialler.
+    if (activePlatform.url.startsWith("tel:")) {
+      window.location.href = activePlatform.url;
+    } else {
+      window.open(
+        activePlatform.url,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
   };
   // -----------------------------------------
   // CONNECTION MESSAGE
@@ -394,6 +405,12 @@ document.querySelectorAll(".platform-node").forEach((node) => {
   node.addEventListener("mouseleave", () => {
     node.classList.remove("scanning");
   });
+  node.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    activatePlatform(index);
+  }
+});
 });
 // =============================================
 // CONNECTION STATUS
@@ -406,6 +423,7 @@ function getConnectionStatus(url) {
       text: "CONNECTION MISSING",
     };
   }
+
   // Placeholder URL
   if (url.startsWith("YOUR_") || url.includes("YOUR_LINK")) {
     return {
@@ -413,6 +431,7 @@ function getConnectionStatus(url) {
       text: "CONNECTION MISSING",
     };
   }
+
   // Browser offline
   if (!navigator.onLine) {
     return {
@@ -420,27 +439,50 @@ function getConnectionStatus(url) {
       text: "NETWORK OFFLINE",
     };
   }
-  // Check URL structure
+
+  // Phone number validation
+  if (url.startsWith("tel:")) {
+    const phone = url.substring(4);
+
+    if (/^\+?[0-9][0-9(). -]*$/.test(phone)) {
+      return {
+        state: "verified",
+        text: "CALL READY",
+      };
+    }
+
+    return {
+      state: "invalid",
+      text: "CONNECTION INVALID",
+    };
+  }
+
+  // Website URL validation
   try {
     const parsed = new URL(url);
-    // Only HTTP/HTTPS allowed
-    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+
+    if (
+      parsed.protocol !== "https:" &&
+      parsed.protocol !== "http:"
+    ) {
       return {
         state: "invalid",
         text: "CONNECTION INVALID",
       };
     }
-    // URL must have a hostname
+
     if (!parsed.hostname) {
       return {
         state: "invalid",
         text: "CONNECTION INVALID",
       };
     }
+
     return {
       state: "verified",
       text: "LINK VERIFIED",
     };
+
   } catch {
     return {
       state: "invalid",
@@ -450,23 +492,29 @@ function getConnectionStatus(url) {
 }
 function updateConnectionStatus(platform) {
   const statusElement = document.getElementById("profileStatus");
+
   if (!statusElement) {
     return;
   }
-  // Show checking state first
+
   statusElement.textContent = "◌ VERIFYING LINK...";
   statusElement.className = "profile-status checking";
+
   // Small KAI scanning delay
   setTimeout(() => {
+    if (activePlatform !== platform) {
+      return;
+    }
     const connection = getConnectionStatus(platform.url);
     statusElement.textContent =
       connection.state === "verified"
-        ? "● LINK VERIFIED"
+        ? `● ${connection.text}`
         : connection.state === "missing"
           ? "○ CONNECTION MISSING"
           : connection.state === "offline"
             ? "⚠ NETWORK OFFLINE"
             : "⚠ CONNECTION INVALID";
+
     statusElement.className = `profile-status ${connection.state}`;
   }, 500);
 }
@@ -496,44 +544,3 @@ function updateYear() {
   }
 }
 updateYear();
-// =============================================
-// WEBSITE VIEW COUNTER — SUPABASE
-// =============================================
-const SUPABASE_URL = "https://cgkmhektkauaxigmqspk.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_sOL-CyHF7dMZ-xpq4CBf9Q_hhgsY-wu";
-async function updateViewCounter() {
-  const viewCountElement = document.getElementById("viewCount");
-  const tooltipElement = document.getElementById("viewTooltip");
-  if (!viewCountElement) {
-    return;
-  }
-  try {
-    const response = await fetch(
-      `${SUPABASE_URL}/functions/v1/increment-view`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_PUBLISHABLE_KEY
-        },
-        body: JSON.stringify({})
-      }
-    );
-    const data = await response.json();
-    console.log("Supabase response:", data);
-    if (response.ok && data.success) {
-      viewCountElement.textContent = data.views;
-      if (tooltipElement) {
-        tooltipElement.textContent =
-          data.views === 1
-            ? "1 VIEW"
-            : `${data.views} VIEWS`;
-      }
-    } else {
-      console.error("View counter failed:", data);
-    }
-  } catch (error) {
-    console.error("View counter error:", error);
-  }
-}
-updateViewCounter();

@@ -56,4 +56,22 @@ const platforms = [
     stats: "COMMUNITY • DISCUSSIONS • COLLABORATION",
     url: "https://discordapp.com/users/1256675555294838998",
   },
+    {
+    name: "WhatsApp",
+    type: "MESSAGING",
+    icon: "assets/whatsapp.svg",
+    description:
+      "Connect with me directly on WhatsApp for conversations, networking and collaboration.",
+    stats: "MESSAGING • NETWORKING • COLLABORATION",
+    url: "https://wa.me/916369638817",
+  },
+  {
+    name: "Phone",
+    type: "VOICE",
+    icon: "assets/phone.svg",
+    description:
+      "Reach me directly through a phone call for professional communication and discussions.",
+    stats: "DIRECT CALLS • COMMUNICATION • CONTACT",
+    url: "tel:+916369638817",
+  },
 ];

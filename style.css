@@ -8,7 +8,6 @@
 }
 :root {
      --bg: #02080b;
-     --panel: rgba(5, 16, 21, 0.82);
      --border:rgba(0, 255, 136, 0.18);
      --green:#00ff88;
      --green-soft: rgba(0, 255, 136, 0.12);
@@ -231,12 +230,6 @@ h1 span {
      box-shadow: 0 0 8px #00ff88, 0 0 20px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.35);
      z-index: 3;
 }
-.center-node img {
-     width: 55px;
-     height: 55px;
-     position: relative;
-     z-index: 2;
-}
 .center-node span {
     position: absolute;
     top: 73px;
@@ -301,41 +294,6 @@ h1 span {
      color: var(--green);
      letter-spacing: 1px;
 }
-/* =============================================
-   PLATFORM PANEL
-   ============================================= */
-.platform-panel {
-     min-height: 300px;
-     border: 1px solid var(--border);
-     border-radius: 28px;
-     background: var(--panel);
-     padding: 40px;
-}
-.panel-placeholder {
-     min-height: 220px;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     text-align: center;
-     color: var(--muted);
-}
-.panel-icon {
-     font-size:30px;
-     color: var(--green);
-     margin-bottom: 15px;
-}
-.panel-placeholder h2 {
-     font-family: monospace;
-     font-size: 16px;
-     color: var(--text);
-     letter-spacing: 2px;
-}
-.panel-placeholder p {
-     max-width: 400px;
-     margin-top: 10px;
-     line-height: 1.6;
-}
 /* =========================================
    FOOTER
    ========================================= */
@@ -377,9 +335,6 @@ h1 span {
      }
      h1 {
           letter-spacing: -2px;
-     }
-     .platform-panel {
-          padding: 25px;
      }
      .site-footer {
           grid-template-columns: 1fr;
@@ -621,49 +576,6 @@ h1 span {
      box-shadow: 0 0 20px rgba(0, 255, 136, .2);
      transform: translateY(-2px);
 }
-/* =============================================
-   CONNECTION STATES
-   ============================================= */
-.profile-status.verified {
-     color: #00ff88;
-}
-.profile-status.missing {
-     color: #ffb84d;
-}
-.profile-status.invalid {
-     color: #ff5577;
-}
-/* =============================================
-   PROFILE DETAILS
-   ============================================= */
-.profile-details {
-     margin-top: 24px;
-     border-top: 1px solid rgba(0, 255, 136, .12);
-     border-bottom: 1px solid rgba(0, 255, 136, .12);
-     background: rgba(0, 255, 136, .025);
-}
-.detail-row {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     padding: 14px 18px;
-     border-bottom: 1px solid rgba(0, 255, 136, .06);
-}
-.detail-row:last-child {
-     border-bottom: none;
-}
-.detail-row span {
-     font-family: monospace;
-     font-size: 10px;
-     letter-spacing: 2px;
-     color: rgba(220, 240, 235, .4);
-}
-.detail-row strong {
-     font-family: monospace;
-     font-size: 11px;
-     letter-spacing: 1px;
-     color: #00ff88;
-}
 /* Checking */
 .profile-status.checking {
      color: #00ffcc;
@@ -702,70 +614,6 @@ h1 span {
 [hidden] {
      display: none !important;
 }
-/* =============================================
-   WEBSITE VIEW COUNTER
-   ============================================= */
-.header {
-     position: relative;
-}
-.view-counter {
-     position: absolute;
-     left: 50%;
-     top: 50%;
-     transform: translate(-50%, -50%);
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     gap: 7px;
-     height: 32px;
-     padding: 0 10px;
-     color: var(--muted);
-     font-family: monospace;
-     font-size: 11px;
-     letter-spacing: 1px;
-     cursor: default;
-     z-index: 5;
-}
-.view-counter svg {
-     width: 17px;
-     height: 17px;
-     fill: var(--green);
-     opacity: 0.85;
-     transition: transform 0.2s ease, opacity 0.2s ease;
-}
-.view-counter:hover svg {
-     transform: scale(1.08);
-     opacity: 1;
-}
-#viewCount {
-     color: var(--green);
-     min-width: 18px;
-     text-align: center;
-}
-/* Tooltip */
-.view-tooltip {
-     position: absolute;
-     top: calc(100% + 8px);
-     left: 50%;
-     transform: translateX(-50%) translateY(-4px);
-     padding: 6px 9px;
-     border: 1px solid rgba(0, 255, 136, 0.22);
-     border-radius: 6px;
-     background: rgba(3, 12, 16, 0.96);
-     color: var(--green);
-     font-family: monospace;
-     font-size: 9px;
-     letter-spacing: 1.5px;
-     white-space: nowrap;
-     opacity: 0;
-     pointer-events: none;
-     transition: opacity 0.2s ease, transform 0.2s ease;
-     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
-.view-counter:hover .view-tooltip {
-     opacity: 1;
-     transform: translateX(-50%) translateY(0);
-}
 /* =========================================
    PROFILE PANEL — LEFT ALIGNMENT
    ========================================= */
@@ -801,11 +649,7 @@ h1 span {
     max-width: 900px;
     margin-left: 0;
     margin-right: 0;
-    align-items: flex-start;
     text-align: left;
-}
-#emptyState .panel-symbol {
-    margin-left: 0;
 }
 #emptyState h2 {
     text-align: left;

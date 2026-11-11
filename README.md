@@ -1,78 +1,76 @@
-# KAI-Nexus
+# KAI-NEXUS
 
-### Digital Identity Network
+## Digital Identity Network
 
 > **One identity. Every digital presence.**
 
-KAI-Nexus is a personal digital identity and professional presence platform that brings multiple online profiles into a single interactive interface.
+KAI-NEXUS is a personal digital identity platform that brings multiple online profiles and communication channels together in one interactive digital network.
 
-Instead of maintaining separate links for different platforms, KAI-Nexus provides a centralized network where visitors can discover and access the owner's professional, coding, competitive programming, data science, and development profiles.
+Instead of sharing separate links for different platforms, KAI-NEXUS provides a centralized interface through which visitors can discover and access professional profiles, development platforms, coding profiles, competition platforms, and communication channels.
 
-The platform also includes a serverless global view counter powered by Supabase, allowing the website to maintain a persistent visitor count across different devices and browsers.
+The project uses a futuristic digital-network concept, representing each online presence as an interconnected node surrounding a central KAI core.
 
 ---
 
 ## 🌐 Live Website
 
-**KAI-Nexus:**  
-<a href="https://kamalesh-suresh-kumar.github.io/KAI-Nexus/" target="_blank" rel="noopener noreferrer">
-    Open KAI-Nexus
-</a>
+**KAI-NEXUS:**  
+[Open KAI-NEXUS](https://kamalesh-suresh-kumar.github.io/KAI-NEXUS/)
 
 **GitHub Repository:**  
-<a href="https://github.com/Kamalesh-Suresh-Kumar/KAI-Nexus" target="_blank" rel="noopener noreferrer">
-    Open KAI-Nexus Repository
-</a>
+[View Source Code](https://github.com/Kamalesh-Suresh-Kumar/KAI-NEXUS)
 
 ---
 
-# 📌 Overview
+## 📌 Overview
 
-KAI-Nexus was designed as a digital identity hub that connects multiple professional and technical platforms through one unified interface.
+KAI-NEXUS is designed as a centralized digital identity hub that connects multiple online platforms through a single interactive interface.
 
 The project focuses on:
 
-- Personal branding
+- Personal digital identity
 - Professional profile discovery
-- Centralized digital presence
+- Centralized online presence
 - Interactive platform navigation
-- Serverless backend integration
-- Persistent global visitor statistics
+- Visual representation of digital connections
 - Responsive web design
+- Lightweight frontend architecture
 - GitHub Pages deployment
 
-The interface uses a futuristic digital-network concept where the user's online platforms are represented as interconnected nodes around a central KAI core.
+The central KAI node represents the core identity, while individual platform nodes represent different aspects of the user's digital presence.
 
 ---
 
-# 🎯 Objectives
+## 🎯 Objectives
 
-The main objectives of KAI-Nexus are:
+The main objectives of KAI-NEXUS are:
 
-1. Create a single digital identity for multiple online platforms.
+1. Create a unified digital identity for multiple online platforms.
 2. Provide quick access to professional and technical profiles.
-3. Build a visually distinctive personal portfolio interface.
+3. Build a distinctive and interactive personal digital presence.
 4. Replace scattered profile links with one centralized network.
-5. Implement a persistent global website view counter.
-6. Use a serverless backend instead of maintaining a traditional server.
-7. Deploy the complete frontend using GitHub Pages.
-8. Keep the architecture lightweight and easy to maintain.
+5. Represent digital connections through an interactive node-based interface.
+6. Develop a lightweight application using standard web technologies.
+7. Deploy the website using GitHub Pages.
+8. Maintain a simple and easily maintainable project architecture.
 
 ---
 
-# ✨ Key Features
+## ✨ Key Features
 
-## 1. Digital Identity Network
+### 1. Digital Identity Network
 
-KAI-Nexus presents the user's online presence as a connected digital network.
+KAI-NEXUS presents the user's digital presence as an interconnected network.
 
-The central KAI node represents the core identity, while individual platforms are represented as connected nodes.
+- A central KAI core represents the primary identity.
+- Individual nodes represent different online platforms.
+- Connection lines visually link each platform to the central node.
+- Animated particles create a dynamic network appearance.
+- Platform nodes provide interactive navigation.
 
----
+### 2. Multi-Platform Profile Hub
 
-## 2. Multi-Platform Profile Hub
-
-The website provides direct access to multiple online platforms, including:
+The network connects nine digital platforms and communication channels.
 
 | Platform | Purpose |
 | --- | --- |
@@ -80,493 +78,384 @@ The website provides direct access to multiple online platforms, including:
 | LinkedIn | Professional Networking |
 | Kaggle | AI / Data Science |
 | HackerRank | Coding |
-| Unstop | Competitions & Career Opportunities |
 | LeetCode | Algorithms & Problem Solving |
+| Unstop | Competitions & Career Opportunities |
+| Phone | Voice Communication |
+| WhatsApp | Messaging |
+| Discord | Community & Communication |
 
-Each platform is presented as an individual node within the digital network.
+Each platform is represented by an individual node with its own icon, category, and destination.
 
----
+### 3. Interactive Platform Selection
 
-## 3. Interactive Platform Sections
+Visitors can select a platform node to inspect its corresponding profile information.
 
-Selecting a platform displays information about that platform and provides an option to open the corresponding profile.
+The profile panel dynamically displays:
 
-Each platform section contains:
-
-- Platform identity
+- Platform name
 - Platform category
-- Short description
-- Relevant skills or activities
-- External profile link
+- Platform description
+- Platform-related information
+- Connection status
+- External platform navigation
+
+The **OPEN PLATFORM** action provides access to the selected destination.
+
+### 4. Animated Network Interface
+
+The digital network includes visual elements that enhance the interactive experience:
+
+- Central KAI core
+- Circular animated rings
+- Connecting network lines
+- Animated connection particles
+- Interactive platform nodes
+- Platform selection highlighting
+- Dark futuristic interface
+- Neon-green visual accents
+
+### 5. Responsive Interface
+
+The website uses responsive CSS layouts to support different screen sizes.
+
+The interface is designed to maintain its visual structure and usability across desktop and smaller devices.
+
+### 6. Dynamic Footer
+
+The footer displays the KAI-NEXUS identity, digital network description, and copyright year.
+
+The year is dynamically updated through JavaScript.
 
 ---
 
-## 4. Global View Counter
+## 🏗️ Technology Stack
 
-KAI-Nexus includes a persistent global website view counter.
-
-Unlike a browser-based counter using the `localStorage`, the final implementation uses a serverless backend.
-
-The architecture is:
-
-```
-Visitor
-   │
-   ▼
-KAI-Nexus Frontend
-   │
-   ▼
-Supabase Edge Function
-   │
-   ▼
-PostgreSQL Function
-   │
-   ▼
-site_stats Table
-   │
-   ▼
-Updated View Count
-```
-
-This allows the counter to be shared globally instead of being stored separately in each visitor's browser.
-
----
-
-# ⚙️ View Counter Architecture
-
-The view counter is implemented using Supabase.
-
-Database Table
-
-The project uses a table called `site_stats` with the following structure:
-
-| Column  | Type     | Description                    | Primary Key |
-| ------- | -------- | ------------------------------ | ----------- |
-| `id`    | `text`   | Unique site identifier         | ☑️          |
-| `views` | `bigint` | Total number of recorded views | 🔳          |
-
-The primary site identifier is `kai-nexus`.
-
----
-
-# 🗄️Database Function
-
-A PostgreSQL function is used to increment the view count.
-
-Conceptually:
-
-`increment_site_view(site_id)`
-
-The function:
-
-1. Receives the site ID.
-2. Finds the corresponding record.
-3. Increments the view count.
-4. Returns the updated count.
-
-This keeps the counter operation on the backend rather than exposing database update logic directly to the browser.
-
----
-
-# Supabase Edge Function
-
-The frontend communicates with a Supabase Edge Function named:
-
-`increment-view`
-
-The Edge Function acts as the serverless API layer between the website and the database.
-
-```
-Browser
-   │
-   │ POST request
-   ▼
-increment-view
-   │
-   │ RPC call
-   ▼
-increment_site_view()
-   │
-   ▼
-site_stats
-```
-
-The function returns a response containing the updated view count.
-
-Example response:
-
-```JSON
-{
-  "success": true,
-  "views": 1
-}
-```
-
----
-
-# 🏗️ Technology Stack
-
-`Frontend:`
+### Frontend
 
 - HTML5
 - CSS3
 - JavaScript
+- SVG Graphics
 - Responsive Web Design
 
-`Backend:`
+### Deployment
 
-- Supabase
-- Supabase Edge Functions
-- PostgreSQL
-- PostgreSQL RPC functions
-
-`Deployment:`
-
+- Git
 - GitHub
 - GitHub Pages
 
-`Development Tools:`
+### Development Tools
 
 - Visual Studio Code
 - Git
 - GitHub
-- Supabase Dashboard
 - Browser Developer Tools
 
 ---
 
-# 📁 Project Structure
+## 📁 Project Structure
 
-The project follows a lightweight static-web architecture.
+KAI-NEXUS follows a lightweight static-web architecture without requiring a frontend build system or a dedicated backend server.
 
-```
-KAI-Nexus/
+```text
+KAI-NEXUS/
 │
-├── index.html       ➡ Structure
-├── style.css        ➡ Design
-├── app.js           ➡ Application Logic
-├── README.md        ➡ Project documentation
+├── index.html
+├── style.css
+├── app.js
+├── README.md
 │
 ├── data/
-│   └── platforms.js ➡ Platform Data
+│   └── platforms.js
 │
 └── assets/
-    └── *.svg        ➡ Images amd Icons
+    ├── kai.svg
+    ├── kai-wordmark.svg
+    ├── github.svg
+    ├── linkedin.svg
+    ├── kaggle.svg
+    ├── hackerrank.svg
+    ├── leetcode.svg
+    ├── unstop.svg
+    ├── discord.svg
+    ├── phone.svg
+    └── whatsapp.svg
 ```
 
-## `index.html`
+*Note: The structure above represents the current project organization. Additional SVG assets can be added as the platform network evolves.*
 
-Contains the main structure of the KAI-Nexus website.
+### `index.html`
+
+Contains the main structure of the KAI-NEXUS application.
 
 It defines:
 
 - Header
 - Hero section
-- Digital network
-- Platform sections
+- Digital network section
+- Platform intelligence panel
 - Footer
-- View counter element
+- JavaScript file references
 
-## `style.css`
+### `style.css`
 
 Contains the visual design and layout of the application.
 
 It controls:
 
 - Typography
-- Colors
+- Color system
 - Spacing
+- Responsive layouts
 - Animations
-- Digital-network appearance
-- Cards
+- Network appearance
 - Platform nodes
-- Responsive behavior
+- Connection lines
+- Profile panel
 - Buttons
 - Visual effects
 
-## `app.js`
+### `app.js`
 
 Contains the client-side application logic.
 
 Responsibilities include:
 
-- Initializing the application
-- Handling platform interactions
-- Updating dynamic UI elements
-- Calling the Supabase Edge Function
-- Fetching the global view count
-- Displaying the returned count
-- Handling frontend events
+- Application initialization
+- Platform node generation
+- Network positioning
+- Connection line rendering
+- Platform selection
+- Dynamic profile information
+- Connection status handling
+- Platform navigation
+- Footer year initialization
+- Frontend event handling
 
-## `assets/`
+### `data/platforms.js`
 
-Contains static resources used by the website, such as:
+Contains the configuration and information for the platforms connected to KAI-NEXUS.
 
-- Logos
-- Icons
+Keeping platform information separate from the main application logic makes the project easier to maintain and extend.
 
-## `platforms.js`
-
-Contains the configuration and information for the digital platforms connected to KAI-Nexus.
-
-Instead of hard-coding every platform's information directly inside `app.js`, `platforms.js` keeps the platform-specific data organized separately.
-
-The file can contain information such as:
+Platform configuration includes:
 
 - Platform name
 - Platform category
 - Platform description
 - Platform URL
 - Platform icon
-- Platform-related labels or tags
+- Platform-related labels
+
+### `assets/`
+
+Contains the SVG resources used throughout the application.
+
+These include:
+
+- KAI identity logo
+- KAI wordmark
+- Platform logos
+- Communication icons
 
 ---
 
-# 🔐 Security Considerations
+## ⚙️ Application Architecture
 
-KAI-Nexus uses a serverless architecture so that the website does not require a traditional dedicated server.
+KAI-NEXUS uses a client-side architecture.
 
-The frontend communicates with the Supabase Edge Function rather than directly performing privileged database operations.
+The application is divided into three primary layers:
 
-The database update operation is handled through the server-side function.
+### 1. Presentation Layer
 
-**Important**
+Responsible for displaying the website interface.
 
-Only public client-side configuration should ever be included in frontend code.
-
-Never expose:
-
-```
-service_role key
-database password
-private API credentials
-server secrets
-```
-
-in:
-
-```
-index.html
-app.js
-GitHub repository
-```
-
-The Supabase project should be configured so that sensitive server-side credentials remain inside the Supabase environment.
-
----
-
-# ☁️ Serverless Architecture
-
-KAI-Nexus does not require a continuously running backend server.
-
-Instead, the backend functionality is handled through Supabase Edge Functions.
-
-**Traditional Architecture**
-
-```
-Browser
-   │
-   ▼
-Dedicated Backend Server
-   │
-   ▼
-Database
-```
-
-**KAI-Nexus Architecture**
-
-```
-Browser
-   │
-   ▼
-GitHub Pages
-   │
-   ▼
-Supabase Edge Function
-   │
-   ▼
-PostgreSQL
-```
-
-This makes the project lightweight and suitable for a static hosting environment such as GitHub Pages.
-
----
-
-# 🔄 Application Flow
-
-When a visitor opens KAI-Nexus:
-
-```
-1. Website loads
-        ↓
-2. Frontend initializes
-        ↓
-3. View counter request is sent
-        ↓
-4. Supabase Edge Function receives request
-        ↓
-5. PostgreSQL function increments counter
-        ↓
-6. Updated count is returned
-        ↓
-7. Frontend displays the count
-        ↓
-8. Visitor can interact with platform nodes
-```
-
----
-
-# 📊 View Counter Flow
-
-```
-                ┌──────────────────────┐
-                │      Visitor         │
-                └──────────┬───────────┘
-                           │
-                           ▼
-                ┌──────────────────────┐
-                │    KAI-Nexus UI      │
-                └──────────┬───────────┘
-                           │
-                    HTTP POST Request
-                           │
-                           ▼
-                ┌──────────────────────┐
-                │ Supabase Edge        │
-                │ Function             │
-                │ increment-view       │
-                └──────────┬───────────┘
-                           │
-                       RPC Call
-                           │
-                           ▼
-                ┌──────────────────────┐
-                │ PostgreSQL Function  │
-                │ increment_site_view  │
-                └──────────┬───────────┘
-                           │
-                           ▼
-                ┌──────────────────────┐
-                │    site_stats        │
-                │                      │
-                │ kai-nexus | views    │
-                └──────────┬───────────┘
-                           │
-                      Updated Count
-                           │
-                           ▼
-                ┌──────────────────────┐
-                │     KAI-Nexus UI     │
-                │       👁 8           │
-                └──────────────────────┘
-```
-
----
-
-🧪 Testing
-
-The application should be tested for:
-
-**UI**
-
-- ☑️Website loads correctly
-- ☑️Hero section renders correctly
-- ☑️Digital network renders correctly
-- ☑️Platform cards are visible
-- ☑️Footer renders correctly
-
-**Navigation**
-
-- ☑️GitHub link works
-- ☑️LinkedIn link works
-- ☑️Kaggle link works
-- ☑️HackerRank link works
-- ☑️Unstop link works
-- ☑️LeetCode link works
-
-**Backend**
-
-- ☑️Supabase project created
-- ☑️`site_stats` table created
-- ☑️Initial site record created
-- ☑️PostgreSQL increment function created
-- ☑️Supabase Edge Function deployed
-- ☑️Edge Function tested
-- ☑️View count returned successfully
-
-**Deployment**
-
-- ☑️GitHub repository created
-- ☑️Source code pushed
-- ☑️GitHub Pages enabled
-- ☑️Public website accessible
-- ☑️Global view counter working after deployment
-
----
-
-# 📈 Project Architecture
-
-The overall architecture can be summarized as:
-
-```
-                    KAI-Nexus
-                        │
-              ┌─────────┴─────────┐
-              │                   │
-          Frontend             Backend
-              │                   │
-        GitHub Pages        Supabase
-              │                   │
-          HTML/CSS/JS       Edge Function
-                                  │
-                                  ▼
-                            PostgreSQL
-                                  │
-                                  ▼
-                             site_stats
-```
-
----
-
-# 🌍 Deployment Model
-
-KAI-Nexus uses two separate infrastructure layers.
-
-## **Frontend Hosting**
-
-```
-GitHub Pages
-```
-
-Responsible for:
+Technologies:
 
 - HTML
 - CSS
+- SVG
+
+### 2. Application Logic Layer
+
+Responsible for handling application behavior and user interactions.
+
+Technology:
+
 - JavaScript
-- Static assets
 
-## **Backend Services**
+### 3. Data Configuration Layer
 
+Responsible for maintaining platform-specific information separately from the application logic.
+
+Technology:
+
+- JavaScript (`platforms.js`)
+
+### Architecture Diagram
+
+```text
+                 KAI-NEXUS
+                     │
+          ┌──────────┼──────────┐
+          │          │          │
+          ▼          ▼          ▼
+       HTML         CSS     JavaScript
+          │          │          │
+          │          │          ▼
+          │          │     Application Logic
+          │          │          │
+          │          │          ▼
+          │          │     Platform Data
+          │          │     platforms.js
+          │          │          │
+          └──────────┴──────────┘
+                     │
+                     ▼
+              Interactive UI
+                     │
+                     ▼
+             GitHub Pages
 ```
-Supabase
-```
-
-Responsible for:
-
-- Edge Function
-- Database
-- View counter logic
-
-This separation allows the frontend to remain completely static while still supporting dynamic server-side functionality.
 
 ---
 
-# 👨‍💻 Author
+## 🔄 Application Flow
 
-Kamalesh Suresh Kumar
+When a visitor opens KAI-NEXUS:
+
+```text
+1. Website loads
+        ↓
+2. HTML structure is rendered
+        ↓
+3. CSS styles are applied
+        ↓
+4. JavaScript initializes
+        ↓
+5. Platform configuration is loaded
+        ↓
+6. Platform nodes are generated
+        ↓
+7. Network connections are rendered
+        ↓
+8. Visitor selects a platform
+        ↓
+9. Profile information is displayed
+        ↓
+10. Visitor can open the selected platform
+```
+
+---
+
+## ☁️ Deployment
+
+KAI-NEXUS is deployed using GitHub Pages.
+
+The deployment architecture is:
+
+```text
+          GitHub Repository
+                  │
+                  ▼
+             Main Branch
+                  │
+                  ▼
+             GitHub Pages
+                  │
+                  ▼
+           Public Website
+```
+
+GitHub Pages hosts the static application files, including HTML, CSS, JavaScript, and SVG assets.
+
+No continuously running backend server is required for the current implementation.
+
+---
+
+## 🔐 Security Considerations
+
+KAI-NEXUS uses a static frontend architecture.
+
+Important considerations:
+
+- Avoid placing private credentials in client-side JavaScript.
+- Do not expose passwords, private API keys, or confidential information in the repository.
+- Use HTTPS for external destinations wherever supported.
+- Validate external URLs before using them for navigation.
+- Keep platform configuration organized and maintainable.
+
+---
+
+## 🧪 Testing
+
+The application should be tested across the following areas.
+
+### UI Testing
+
+- [ ] Website loads correctly.
+- [ ] Hero section renders correctly.
+- [ ] KAI logo displays correctly.
+- [ ] Digital network renders correctly.
+- [ ] Central KAI core displays correctly.
+- [ ] Platform nodes display correctly.
+- [ ] Connection lines and particles render correctly.
+- [ ] Footer displays correctly.
+- [ ] Responsive layout works across screen sizes.
+
+### Platform Navigation Testing
+
+- [ ] GitHub destination works.
+- [ ] LinkedIn destination works.
+- [ ] Kaggle destination works.
+- [ ] HackerRank destination works.
+- [ ] LeetCode destination works.
+- [ ] Unstop destination works.
+- [ ] Phone action works.
+- [ ] WhatsApp destination works.
+- [ ] Discord destination works.
+
+### Interaction Testing
+
+- [ ] Platform nodes respond to selection.
+- [ ] Selected node receives the appropriate visual highlight.
+- [ ] Profile information updates correctly.
+- [ ] OPEN PLATFORM action opens the correct destination.
+- [ ] Connection status updates correctly.
+- [ ] No unexpected JavaScript errors occur.
+
+### Deployment Testing
+
+- [ ] GitHub repository contains the latest source code.
+- [ ] GitHub Pages is configured correctly.
+- [ ] Public website is accessible.
+- [ ] Assets load correctly after deployment.
+- [ ] Platform navigation works on the deployed website.
+
+---
+
+## 🌍 Project Highlights
+
+KAI-NEXUS combines personal branding, profile discovery, and interactive web design into a single application.
+
+Its primary design concept is to represent an individual's digital presence as a connected network rather than a conventional list of social media links.
+
+The project demonstrates:
+
+- Frontend development
+- JavaScript-based UI interactions
+- SVG asset integration
+- Dynamic DOM manipulation
+- Responsive web design
+- Data-driven application structure
+- GitHub Pages deployment
+
+---
+
+## 👨‍💻 Author
+
+### Kamalesh Suresh Kumar
 
 Computer Science & Engineering
 
-> KAI-Nexus is designed as a centralized representation of the author's digital and professional presence.
-
----
+> KAI-NEXUS — One identity. Every digital presence.
