@@ -15,10 +15,10 @@ The project uses a futuristic digital-network concept, representing each online 
 ## 🌐 Live Website
 
 **KAI-NEXUS:**  
-[Open KAI-NEXUS](https://kamalesh-suresh-kumar.github.io/KAI-NEXUS/)
+[Open KAI-NEXUS](https://kamalesh-suresh-kumar.github.io/KAI-Nexus/)
 
 **GitHub Repository:**  
-[View Source Code](https://github.com/Kamalesh-Suresh-Kumar/KAI-NEXUS)
+[View Source Code](https://github.com/Kamalesh-Suresh-Kumar/KAI-Nexus)
 
 ---
 
@@ -182,7 +182,16 @@ KAI-NEXUS/
     └── whatsapp.svg
 ```
 
-*Note: The structure above represents the current project organization. Additional SVG assets can be added as the platform network evolves.*
+*Note: The structure above represents the main static website. Additional SVG assets can be added as the platform network evolves. The `kai-nexus-live-qa/` directory contains the Playwright-based live-site test harness.*
+
+```text
+kai-nexus-live-qa/
+├── package.json
+├── playwright.config.js
+├── tests/
+│   └── live-site.spec.js
+└── playwright-report/       # Generated HTML report (CI artifact)
+```
 
 ### `index.html`
 
@@ -387,50 +396,110 @@ Important considerations:
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing & Quality Assurance
 
-The application should be tested across the following areas.
+KAI-NEXUS is tested against the **deployed GitHub Pages website**, rather than a local development server, using Playwright.
 
-### UI Testing
+### Automated cross-browser testing
 
-- [ ] Website loads correctly.
-- [ ] Hero section renders correctly.
-- [ ] KAI logo displays correctly.
-- [ ] Digital network renders correctly.
-- [ ] Central KAI core displays correctly.
-- [ ] Platform nodes display correctly.
-- [ ] Connection lines and particles render correctly.
-- [ ] Footer displays correctly.
-- [ ] Responsive layout works across screen sizes.
+The live-site QA suite runs against:
 
-### Platform Navigation Testing
+- Chromium
+- Firefox
+- WebKit
 
-- [ ] GitHub destination works.
-- [ ] LinkedIn destination works.
-- [ ] Kaggle destination works.
-- [ ] HackerRank destination works.
-- [ ] LeetCode destination works.
-- [ ] Unstop destination works.
-- [ ] Phone action works.
-- [ ] WhatsApp destination works.
-- [ ] Discord destination works.
+The suite covers:
 
-### Interaction Testing
+- Production URL availability and main document rendering.
+- Generation of all nine configured platform nodes.
+- Platform icon loading and network connection rendering.
+- Platform selection, profile updates, and active-state behavior.
+- Keyboard interaction using Enter and Space.
+- Accessible button semantics and accessible labels.
+- Initial profile visibility and empty-state behavior.
+- Footer year and network layout boundaries.
+- Responsive layouts at 320, 375, 430, 768, 1366, and 1920 pixels.
+- Profile status settling and rapid platform switching.
+- Uncaught browser errors and failed same-origin assets.
+- Automated accessibility checks using axe-core.
+- Configured external destinations and phone-profile call-ready behavior.
 
-- [ ] Platform nodes respond to selection.
-- [ ] Selected node receives the appropriate visual highlight.
-- [ ] Profile information updates correctly.
-- [ ] OPEN PLATFORM action opens the correct destination.
-- [ ] Connection status updates correctly.
-- [ ] No unexpected JavaScript errors occur.
+### Latest verified QA run
 
-### Deployment Testing
+| Metric | Result |
+| --- | ---: |
+| Total tests | 69 |
+| Passed | 69 |
+| Failed | 0 |
+| Flaky | 0 |
+| Skipped | 0 |
+| Browsers | Chromium, Firefox, WebKit |
+| Execution time | Approximately 1.3 minutes |
+| CI workers | 2 |
 
-- [ ] GitHub repository contains the latest source code.
-- [ ] GitHub Pages is configured correctly.
-- [ ] Public website is accessible.
-- [ ] Assets load correctly after deployment.
-- [ ] Platform navigation works on the deployed website.
+The latest verified GitHub Actions run completed all 69 tests successfully: 23 tests in each browser project.
+
+### Running the live-site tests locally
+
+From the `kai-nexus-live-qa/` directory:
+
+```bash
+npm install
+npx playwright install
+```
+
+Set the production URL and run the suite.
+
+**Windows PowerShell:**
+
+```powershell
+$env:BASE_URL = "https://kamalesh-suresh-kumar.github.io/KAI-Nexus/"
+npx playwright test
+```
+
+**macOS / Linux:**
+
+```bash
+BASE_URL="https://kamalesh-suresh-kumar.github.io/KAI-Nexus/" npx playwright test
+```
+
+The Playwright configuration uses the production URL as its default base URL. The environment variable can override it when required.
+
+### Viewing the HTML report
+
+After a local test run:
+
+```bash
+npx playwright show-report
+```
+
+The GitHub Actions workflow also uploads the generated Playwright report as an artifact named `kai-nexus-live-qa-report`. The verified run retained the artifact for 14 days.
+
+### Deployment and CI verification
+
+The verified workflow:
+
+1. Waits for the GitHub Pages production URL to respond.
+2. Runs the Playwright suite against the live production website.
+3. Executes the suite in Chromium, Firefox, and WebKit.
+4. Uploads the generated Playwright report and test-results output as a workflow artifact.
+
+### QA status and maintenance
+
+- [x] Production website responds.
+- [x] All nine platform nodes are generated.
+- [x] Platform icons and network connections render.
+- [x] Platform selection and profile updates work.
+- [x] Keyboard interaction is tested.
+- [x] Accessible labels and button semantics are tested.
+- [x] Responsive layouts are tested at six viewport widths.
+- [x] Browser errors and same-origin asset failures are checked.
+- [x] axe-core accessibility audit passes the configured checks.
+- [x] Configured platform destinations are verified by the test suite.
+- [x] Chromium, Firefox, and WebKit test runs pass.
+- [x] Playwright HTML report is uploaded by GitHub Actions.
+
+*The results above describe the latest verified automated run. They do not imply that every possible external service, device, or manual user scenario has been exhaustively tested.*
 
 ---
 
