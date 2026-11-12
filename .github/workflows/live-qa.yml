@@ -1,51 +1,83 @@
 
-name: KAI-NEXUS Live Website QA
+name: KAI-NEXUS Deployment and Live QA
 
 on:
-  workflow_dispatch:
-
-  # Run after GitHub Pages deployment completes
-  workflow_run:
-    workflows:
-      - pages build and deployment
-    types:
-      - completed
+  push:
     branches:
       - main
+
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: kai-nexus-live-qa
+  group: kai-nexus-production
   cancel-in-progress: false
 
 jobs:
-  live-cross-browser-qa:
-    name: Live QA - Chromium, Firefox, WebKit
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.workflow_run.conclusion == 'success'
-
+  build:
+    name: Prepare Website
     runs-on: ubuntu-latest
-    timeout-minutes: 20
 
-    defaults:
-      run:
-        working-directory: kai-nexus-live-qa
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare production website
+        run: |
+          mkdir -p _site
+
+          cp index.html _site/
+          cp app.js _site/
+          cp style.css _site/
+
+          cp -r assets _site/
+          cp -r data _site/
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+  live-qa:
+    name: Live QA - Chromium, Firefox, WebKit
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     env:
       CI: true
       BASE_URL: https://kamalesh-suresh-kumar.github.io/KAI-Nexus/
 
+    defaults:
+      run:
+        working-directory: kai-nexus-live-qa
+
     steps:
-      - name: Checkout deployed commit
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: >-
-            ${{ github.event_name == 'workflow_run' &&
-            github.event.workflow_run.head_sha ||
-            github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -60,10 +92,28 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run live cross-browser tests
+      - name: Wait for live website
+        working-directory: .
+        run: |
+          echo "Waiting for GitHub Pages deployment..."
+
+          for i in {1..12}; do
+            if curl --fail --silent "$BASE_URL" > /dev/null; then
+              echo "Website is responding."
+              exit 0
+            fi
+
+            echo "Attempt $i: Website not ready. Retrying..."
+            sleep 5
+          done
+
+          echo "Website did not become available."
+          exit 1
+
+      - name: Run production cross-browser tests
         run: npx playwright test
 
-      - name: Upload Playwright HTML report and test evidence
+      - name: Upload Playwright HTML report and evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
