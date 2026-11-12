@@ -4,26 +4,29 @@ name: KAI-NEXUS Live Website QA
 on:
   workflow_dispatch:
 
-  # Run daily at 8:00 AM IST
-  schedule:
-    - cron: "30 2 * * *"
-
-  # Run whenever the QA test harness or workflow changes
-  push:
-    paths:
-      - "kai-nexus-live-qa/**"
-      - ".github/workflows/live-qa.yml"
+  # Run after GitHub Pages deployment completes
+  workflow_run:
+    workflows:
+      - pages build and deployment
+    types:
+      - completed
+    branches:
+      - main
 
 permissions:
   contents: read
 
 concurrency:
   group: kai-nexus-live-qa
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   live-cross-browser-qa:
     name: Live QA - Chromium, Firefox, WebKit
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -36,8 +39,13 @@ jobs:
       BASE_URL: https://kamalesh-suresh-kumar.github.io/KAI-Nexus/
 
     steps:
-      - name: Checkout repository
+      - name: Checkout deployed commit
         uses: actions/checkout@v4
+        with:
+          ref: >-
+            ${{ github.event_name == 'workflow_run' &&
+            github.event.workflow_run.head_sha ||
+            github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
