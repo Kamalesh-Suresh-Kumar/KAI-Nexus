@@ -5,7 +5,7 @@ module.exports = defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  workers: process.env.CI ? 2 : 3,
   reporter: [
     ["list"],
     ["html", { outputFolder: "playwright-report", open: "never" }],
@@ -14,7 +14,7 @@ module.exports = defineConfig({
   timeout: 30_000,
   expect: { timeout: 7_000 },
   use: {
-    baseURL: process.env.BASE_URL || "https://kamalesh-suresh-kumar.github.io/KAI-NEXUS/",
+    baseURL: process.env.BASE_URL || "https://kamalesh-suresh-kumar.github.io/KAI-Nexus/",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure",

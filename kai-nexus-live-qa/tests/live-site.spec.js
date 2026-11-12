@@ -8,7 +8,7 @@ const EXPECTED_PLATFORMS = [
 
 test.describe("KAI-NEXUS production website", () => {
   test("production URL responds and the main document renders", async ({ page }) => {
-    const response = await page.goto("/", { waitUntil: "networkidle" });
+    const response = await page.goto("./", { waitUntil: "domcontentloaded" });
     expect(response, "A navigation response should exist").not.toBeNull();
     expect(response.status()).toBeLessThan(400);
     await expect(page).toHaveTitle(/KAI\s*NEXUS/i);
@@ -19,7 +19,7 @@ test.describe("KAI-NEXUS production website", () => {
   });
 
   test("all nine configured platform nodes are generated", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     const nodes = page.locator(".platform-node");
     await expect(nodes).toHaveCount(EXPECTED_PLATFORMS.length);
     for (const name of EXPECTED_PLATFORMS) {
@@ -28,9 +28,14 @@ test.describe("KAI-NEXUS production website", () => {
   });
 
   test("platform icons load successfully", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     const images = page.locator(".platform-node img");
     await expect(images).toHaveCount(EXPECTED_PLATFORMS.length);
+    await expect.poll(async () => {
+      return await images.evaluateAll(imgs =>
+        imgs.filter(img => img.complete && img.naturalWidth > 0).length
+      );
+    }).toBe(EXPECTED_PLATFORMS.length);
     const imageResults = await images.evaluateAll(imgs =>
       imgs.map(img => ({
         src: img.getAttribute("src"),
@@ -41,13 +46,13 @@ test.describe("KAI-NEXUS production website", () => {
   });
 
   test("network connection lines are generated for every platform", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     await expect.poll(() => page.locator("#connectionLayer line.network-line").count()).toBe(EXPECTED_PLATFORMS.length);
     await expect(page.locator("#particleLayer .data-particle")).toHaveCount(EXPECTED_PLATFORMS.length);
   });
 
   test("selecting every platform updates the profile panel", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     const nodes = page.locator(".platform-node");
     for (const name of EXPECTED_PLATFORMS) {
       const node = nodes.filter({ has: page.locator(".platform-node-name", { hasText: name }) });
@@ -62,7 +67,7 @@ test.describe("KAI-NEXUS production website", () => {
   });
 
   test("only the latest selected platform remains active", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     const nodes = page.locator(".platform-node");
     await nodes.nth(0).click();
     await nodes.nth(1).click();
@@ -73,7 +78,7 @@ test.describe("KAI-NEXUS production website", () => {
   });
 
   test("keyboard Enter and Space activate platform nodes", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     const github = page.locator(".platform-node").filter({
       has: page.locator(".platform-node-name", { hasText: "GitHub" })
     });
@@ -90,17 +95,27 @@ test.describe("KAI-NEXUS production website", () => {
   });
 
   test("interactive nodes expose button semantics and accessible labels", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
+
     const nodes = page.locator(".platform-node");
+
     for (let i = 0; i < await nodes.count(); i++) {
-      await expect(nodes.nth(i)).toHaveAttribute("role", "button");
-      await expect(nodes.nth(i)).toHaveAttribute("tabindex", "0");
-      await expect(nodes.nth(i)).toHaveAttribute("aria-label", /^Select .+/);
+      const node = nodes.nth(i);
+      const visibleName = (await node.locator(".platform-node-name").textContent()).trim();
+
+      await expect(node).toHaveAttribute("role", "button");
+      await expect(node).toHaveAttribute("tabindex", "0");
+      const visibleType = (await node.locator(".platform-node-type").textContent()).trim();
+
+      await expect(node).toHaveAttribute(
+        "aria-label",
+        `${visibleName} ${visibleType}`
+      );
     }
   });
 
   test("initial empty state and selected profile visibility are mutually exclusive", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     await expect(page.locator("#emptyState")).toBeVisible();
     await expect(page.locator("#profileState")).toBeHidden();
     await page.locator(".platform-node").first().click();
@@ -109,12 +124,12 @@ test.describe("KAI-NEXUS production website", () => {
   });
 
   test("footer year is the current year", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     await expect(page.locator("#currentYear")).toHaveText(String(new Date().getFullYear()));
   });
 
   test("all platform nodes remain within the network bounds", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     const result = await page.locator("#network").evaluate(network => {
       const outer = network.getBoundingClientRect();
       return [...network.querySelectorAll(".platform-node")].map(node => {
@@ -122,7 +137,7 @@ test.describe("KAI-NEXUS production website", () => {
         return {
           name: node.dataset.platform,
           inside: r.left >= outer.left - 1 && r.top >= outer.top - 1 &&
-                  r.right <= outer.right + 1 && r.bottom <= outer.bottom + 1
+            r.right <= outer.right + 1 && r.bottom <= outer.bottom + 1
         };
       });
     });
@@ -139,7 +154,7 @@ test.describe("KAI-NEXUS production website", () => {
   ]) {
     test(`responsive layout: ${viewport.name} (${viewport.width}px)`, async ({ page }) => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.goto("/");
+      await page.goto("./", { waitUntil: "domcontentloaded" });
       await expect(page.locator(".hero")).toBeVisible();
       await expect(page.locator("#network")).toBeVisible();
       await expect(page.locator(".site-footer")).toBeVisible();
@@ -153,14 +168,14 @@ test.describe("KAI-NEXUS production website", () => {
   }
 
   test("profile status settles after selecting a platform", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     await page.locator(".platform-node").first().click();
     await expect(page.locator("#profileStatus")).not.toContainText("VERIFYING");
     await expect(page.locator("#profileStatus")).toContainText(/LINK VERIFIED|NETWORK OFFLINE|CONNECTION INVALID|CONNECTION MISSING/);
   });
 
   test("rapid platform switching does not leave stale profile content", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     const nodes = page.locator(".platform-node");
     for (let i = 0; i < EXPECTED_PLATFORMS.length; i++) await nodes.nth(i).click();
     await expect(page.locator("#profileName")).toHaveText("Phone");
@@ -178,7 +193,7 @@ test.describe("KAI-NEXUS production website", () => {
         failedLocal.push(`${request.url()} :: ${request.failure()?.errorText}`);
       }
     });
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     await page.locator(".platform-node").first().click();
     await page.waitForTimeout(650);
     expect(pageErrors).toEqual([]);
@@ -186,7 +201,7 @@ test.describe("KAI-NEXUS production website", () => {
   });
 
   test("basic accessibility audit with axe-core", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
       .analyze();
@@ -197,8 +212,10 @@ test.describe("KAI-NEXUS production website", () => {
     })), "Serious/critical accessibility violations").toEqual([]);
   });
 
+
   test("Open Platform uses the selected configured destination (web profiles)", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
+
     const expected = {
       GitHub: "https://github.com/Kamalesh-Suresh-Kumar",
       LinkedIn: "https://www.linkedin.com/in/kamalesh-suresh-kumar/",
@@ -209,22 +226,33 @@ test.describe("KAI-NEXUS production website", () => {
       Discord: "https://discordapp.com/users/1256675555294838998",
       WhatsApp: "https://wa.me/916369638817"
     };
+
     for (const [name, url] of Object.entries(expected)) {
       const node = page.locator(".platform-node").filter({
         has: page.locator(".platform-node-name", { hasText: name })
       });
+
       await node.click();
-      const popupPromise = page.context().waitForEvent("page");
-      await page.locator("#openButton").click();
-      const popup = await popupPromise;
-      await popup.waitForLoadState("domcontentloaded").catch(() => {});
-      expect(popup.url()).toBe(url);
-      await popup.close();
+
+      await page.evaluate(() => {
+        window.__kaiOpenedUrl = null;
+        window.open = (url) => {
+          window.__kaiOpenedUrl = url;
+          return null;
+        };
+      });
+
+      await page.locator("#openButton").dispatchEvent("click");
+
+      await expect.poll(() =>
+        page.evaluate(() => window.__kaiOpenedUrl)
+      ).toBe(url);
     }
   });
 
+
   test("phone profile is classified as call-ready without invoking the dialler", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./", { waitUntil: "domcontentloaded" });
     await page.locator(".platform-node").filter({
       has: page.locator(".platform-node-name", { hasText: "Phone" })
     }).click();

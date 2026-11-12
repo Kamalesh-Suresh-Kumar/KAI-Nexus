@@ -17,7 +17,10 @@ platforms.forEach((platform, index) => {
   node.dataset.platform = platform.name;
   node.setAttribute("role", "button");
   node.setAttribute("tabindex", "0");
-  node.setAttribute("aria-label", platform.name);
+  node.setAttribute(
+    "aria-label",
+    `${platform.name} ${platform.type}`
+  );
   node.innerHTML = `
     <img src="${platform.icon}" alt="${platform.name}">
     <div class="platform-node-name">
